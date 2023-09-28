@@ -5,4 +5,4 @@ gemspec
 
 gem "kramdown-parser-gfm"
 gem "webrick", "~> 1.8"
-gem "jekyll-theme-leaf", "~> 0.1.0"
+gem "jekyll-theme-leaf"
