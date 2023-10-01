@@ -3,10 +3,10 @@ layout: post
 author: gashetonwan
 title: Archivos de Configuracion sxhkd
 ---
+
 ### Configuracion de SXHKDRC
 
 Configuracion de sxhkd en /home/<'username'>/.config/sxhkd/sxhkdrc
-
 
 {% highlight java %}
 
@@ -31,6 +31,7 @@ super + shift + f
 firefox
 
 #
+
 super + shift + h
 firejail /opt/firefox/firefox
 #steam(dota2)
@@ -38,7 +39,9 @@ super + shift + g
 flatpak run com.valvesoftware.Steam
 
 #
+
 # bspwm hotkeys
+
 #
 
 # quit/restart bspwm
@@ -67,6 +70,7 @@ super + g
 bspc node -s biggest.window
 
 # state/flags
+
 #
 
 # set the window state
@@ -80,6 +84,7 @@ super + ctrl + {m,x,y,z}
 bspc node -g {marked,locked,sticky,private}
 
 # focus/swap
+
 #
 
 # focus the node in the given direction
@@ -120,6 +125,7 @@ super + {\_,shift + }{1-9,0}
 bspc {desktop -f,node -d} '^{1-9,10}'
 
 # preselect
+
 #
 
 # preselect the direction
@@ -143,10 +149,12 @@ super + ctrl + shift + space
 bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 # move a floating window
+
 super + ctrl + {Left,Down,Up,Right}
 bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # resize a floating window
+
 alt + super + {Left,Down,Up,Right}
 /home/franco/.config/bspwm/scripts/bspwm_resize {west,south,north,east}
 #screenshot
@@ -164,18 +172,27 @@ zoom-client
 #!/usr/bin/env bash
 
 if bspc query -N -n focused.floating > /dev/null; then
-        step=20
+step=20
 else
-        step=100
+step=100
 fi
 
 case "$1" in
         west) dir=right; falldir=left; x="-$step"; y=0;;
-        east) dir=right; falldir=left; x="$step"; y=0;;
+east) dir=right; falldir=left; x="$step"; y=0;;
         north) dir=top; falldir=bottom; x=0; y="-$step";;
-        south) dir=top; falldir=bottom; x=0; y="$step";;
+south) dir=top; falldir=bottom; x=0; y="$step";;
 esac
 
 bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 
 {% endhighlight %}
+
+### Configuraciones de polybar
+
+> > > script en bash para ver la ram en la polybar
+
+```bash
+echo " FreeRam:$(/usr/bin/free -h | grep "Mem" | awk '{print $7}') %{F#1bbf3e}%{u-} Cache:$(/usr/bin/free -h | grep "Mem" | awk '{print $6}') "
+
+```
