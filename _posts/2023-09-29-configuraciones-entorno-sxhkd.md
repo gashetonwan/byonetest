@@ -31,17 +31,15 @@ super + shift + f
 firefox
 
 #
-
 super + shift + h
 firejail /opt/firefox/firefox
+
 #steam(dota2)
 super + shift + g
 flatpak run com.valvesoftware.Steam
 
 #
-
 # bspwm hotkeys
-
 #
 
 # quit/restart bspwm
@@ -70,9 +68,7 @@ super + g
 bspc node -s biggest.window
 
 # state/flags
-
 #
-
 # set the window state
 
 super + {t,shift + t,s,f}
@@ -84,9 +80,7 @@ super + ctrl + {m,x,y,z}
 bspc node -g {marked,locked,sticky,private}
 
 # focus/swap
-
 #
-
 # focus the node in the given direction
 
 super + {\_,shift + }{Left,Down,Up,Right}
@@ -125,9 +119,7 @@ super + {\_,shift + }{1-9,0}
 bspc {desktop -f,node -d} '^{1-9,10}'
 
 # preselect
-
 #
-
 # preselect the direction
 
 super + ctrl + alt + {Left,Down,Up,Right}
@@ -190,9 +182,29 @@ bspc node -z "$dir" "$x" "$y" || bspc node -z "$falldir" "$x" "$y"
 
 ### Configuraciones de polybar
 
-> > > script en bash para ver la ram en la polybar
+> script en bash para ver la ram en la polybar
 
 ```bash
 echo " FreeRam:$(/usr/bin/free -h | grep "Mem" | awk '{print $7}') %{F#1bbf3e}%{u-} Cache:$(/usr/bin/free -h | grep "Mem" | awk '{print $6}') "
-
 ```
+
+> script en bash para ver la conexion de red en la polybar
+{% highlight bash %}
+#!/bin/sh
+ 
+echo "%{F#ff0000} %{F#ff0000}$(/usr/sbin/ifconfig enp3s0 | grep "inet " | awk '{print $2}')%{u-}"
+{% endhighlight %}
+
+
+> script en bash para ver la conexion de red de la vpn HackTheBox en la polybar
+{% highlight bash %}
+#!/bin/sh
+
+IFACE=$(/usr/sbin/ifconfig | grep tun0 | awk '{print $1}' | tr -d ':')
+
+if [ "$IFACE" = "tun0" ]; then
+	echo "%{F#aeff9f} %{F#aeff9f}$(/usr/sbin/ifconfig tun0 | grep "inet " | awk '{print $2}')%{u-}"
+else
+	echo "%{F#aeff9f}%{u-} Disconnected"
+fi
+{% endhighlight %}
